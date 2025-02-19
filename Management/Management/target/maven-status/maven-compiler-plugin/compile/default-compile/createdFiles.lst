@@ -1,0 +1,13 @@
+com\HR\Management\Repository\EmployeeRepository.class
+com\HR\Management\Entity\DepartmentModel.class
+com\HR\Management\Repository\DepartmentRepository.class
+com\HR\Management\Controller\JobController.class
+com\HR\Management\Entity\EmployeeModel.class
+com\HR\Management\Service\EmployeeService.class
+com\HR\Management\Service\JobService.class
+com\HR\Management\ManagementApplication.class
+com\HR\Management\Service\DepartmentService.class
+com\HR\Management\Repository\JobRepository.class
+com\HR\Management\Entity\JobModel.class
+com\HR\Management\Controller\EmployeeController.class
+com\HR\Management\Controller\DepartmentController.class

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <title>Home Page</title>
+</head>
+<body>
+    <!--NavBar-->
+    <header class="text-gray-600 body-font shadow-sm">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center gap-5">
+            <a class="flex text-2xl font-medium items-center text-gray-900 mb-4 md:mb-0">
+                <span class="bg-blue-500 text-white p-1 font-bold">HR</span> Management
+            </a>
+            <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+                <a class="mr-5 hover:text-gray-900 hover:cursor-pointer" href="index.html">Dashboard</a>
+                <a class="mr-5 hover:text-gray-900 hover:cursor-pointer" href="HiringPage.html">Hiring</a>
+                <a class="mr-5 hover:text-gray-900 hover:cursor-pointer" href="TrainingPage.html">Training Progress</a>
+                <a class="mr-5 hover:text-gray-900 hover:cursor-pointer" href="LeaveApprovalPage.html">Leave Approval</a>
+            </nav>
+            <button class="inline-flex items-center border-0 py-1 px-3 focus:outline-none bg-blue-500 hover:bg-blue-700 rounded text-base mt-4 md:mt-0 text-white">
+                Profile
+            </button>
+            <button class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-blue-500 rounded text-base mt-4 md:mt-0 hover:text-white">
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Table and Add Employees-->
+    <div class="flex flex-col w-full h-auto justify-center items-center">
+        <div class="container p-5">
+            <h1 class="text-2xl font-bold">Employees Data</h1>
+            <!--Filter and Add Employees-->
+            <div class="flex w-full h-full items-center mt-5 gap-10">
+                <div>
+                    <input
+                        placeholder="Search"
+                        class="placeholder-black border-0 bg-gray-200 px-5 py-2 rounded-full focus:border-gray-200 focus:outline"
+                    />
+                </div>
+                <div>
+                    <button
+                            id="addEmployeeButton"
+                            class="inline-flex justify-center items-center px-5 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-full"
+                    >
+                        Add Employee
+                    </button>
+                </div>
+            </div>
+
+            <!--Popup Menu-->
+            <div id="popupContainer" class="hidden fixed inset-0 flex flex-col justify-center items-center bg-black/30 backdrop-blur-sm z-50">
+                <div class="flex flex-col w-[500px] md:w-[600px] lg:w-[700px] bg-white p-6 rounded-lg shadow-lg relative">
+                    <button id="closePopup" class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-2xl">
+                        &times;
+                    </button>
+
+                    <h1 class="text-center mb-5 text-2xl font-semibold text-gray-800">Employee Details</h1>
+
+                    <form
+                            hx-post="/addEmployee"
+                            hx-target="#tableBodyContainer"
+                            hx-swap="beforeend"
+                            class="flex flex-col gap-4"
+                    >
+                    <input type="text" name="employeeName" placeholder="Employee Name" class="border p-3 rounded-md w-full focus:ring focus:ring-blue-300 " autocomplete="off">
+                        <input type="email" name="employeeEmail" placeholder="Employee Email" class="border p-3 rounded-md w-full focus:ring focus:ring-blue-300" autocomplete="off">
+                        <input type="text" name="employeeJoiningDate" placeholder="Employee Joining Date" class="border p-3 rounded-md w-full focus:ring focus:ring-blue-300" autocomplete="off">
+
+                        <select class="border p-3 rounded-md w-full focus:ring focus:ring-blue-300" id="departmentSelection" name="employeeDepartment"></select>
+
+                        <input type="text" name="employeeRole" placeholder="Employee Role" class="border p-3 rounded-md w-full focus:ring focus:ring-blue-300" autocomplete="off">
+                        <input type="number" name="employeeSalary" placeholder="Employee Salary" class="border p-3 rounded-md w-full focus:ring focus:ring-blue-300" autocomplete="off">
+
+                        <button type="submit" class="px-5 py-3 bg-blue-500 hover:bg-blue-700 text-white rounded-md mt-4 font-medium">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!--Employee Table-->
+            <div class="relative overflow-x-auto mt-5 rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 rounded-lg">
+                    <!--COLUMNS-->
+                    <thead class="text-xs text-white uppercase bg-blue-800">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Employee Name
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Employee Email
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Employee Department
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Manager
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Employee Role
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Employee Salary
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <!--ROWS-->
+                    <tbody id="tableBodyContainer">
+                        <tr class="bg-gray-100 border-b border-gray-400 text-black" id="tableRow">
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="JS/API_Integration.js"></script>
+</body>
+</html>
